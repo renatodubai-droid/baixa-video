@@ -34,6 +34,7 @@ jobs:
         working-directory: projeto
         run: |
           chmod +x gradlew
+          sed -i '/import androidx.compose.foundation.layout.weight/d' app/src/main/java/com/junkfood/seal/ui/page/SimpleAppEntry.kt
           ./gradlew :app:assembleGenericDebug -PnoSplits --stacktrace
 
       - name: Separar APK
