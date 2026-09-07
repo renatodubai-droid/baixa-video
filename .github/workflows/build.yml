@@ -1,0 +1,48 @@
+name: Gerar APK Baixa Video
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar arquivos
+        uses: actions/checkout@v4
+
+      - name: Extrair projeto
+        run: |
+          mkdir projeto
+          unzip Baixa-Video-projeto-Android.zip -d projeto
+
+      - name: Preparar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: gradle
+          cache-dependency-path: projeto/gradle/wrapper/gradle-wrapper.properties
+
+      - name: Preparar Android
+        uses: android-actions/setup-android@v3
+
+      - name: Gerar APK
+        working-directory: projeto
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:assembleGenericDebug -PnoSplits --stacktrace
+
+      - name: Separar APK
+        run: |
+          mkdir entrega
+          cp projeto/app/build/outputs/apk/generic/debug/*.apk entrega/Baixa-Video.apk
+
+      - name: Disponibilizar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Baixa-Video-APK
+          path: entrega/Baixa-Video.apk
