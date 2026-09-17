@@ -28,7 +28,10 @@ jobs:
           cache-dependency-path: projeto/gradle/wrapper/gradle-wrapper.properties
 
       - name: Preparar Android
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
+        with:
+          packages: ""
+          accept-android-sdk-licenses: "no"
 
       - name: Gerar APK
         working-directory: projeto
