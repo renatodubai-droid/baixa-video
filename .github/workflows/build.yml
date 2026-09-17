@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Baixar arquivos
         uses: actions/checkout@v4
@@ -17,7 +16,7 @@ jobs:
       - name: Extrair projeto
         run: |
           mkdir projeto
-          unzip Baixa-Video-projeto-Android-v2.zip -d projeto
+          unzip Baixa-Video-projeto-Android-v3.zip -d projeto
 
       - name: Preparar Java
         uses: actions/setup-java@v4
@@ -37,7 +36,6 @@ jobs:
         working-directory: projeto
         run: |
           chmod +x gradlew
-          sed -i '/import androidx.compose.foundation.layout.weight/d' app/src/main/java/com/junkfood/seal/ui/page/SimpleAppEntry.kt
           ./gradlew :app:assembleGenericDebug -PnoSplits --stacktrace
 
       - name: Separar APK
