@@ -6,6 +6,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -42,9 +45,18 @@ jobs:
         run: |
           mkdir entrega
           cp projeto/app/build/outputs/apk/generic/debug/*.apk entrega/Baixa-Video.apk
+          sha256sum entrega/Baixa-Video.apk
+          stat -c '%n %s bytes' entrega/Baixa-Video.apk
 
       - name: Disponibilizar APK
         uses: actions/upload-artifact@v4
         with:
           name: Baixa-Video-APK
           path: entrega/Baixa-Video.apk
+
+      - name: Publicar APK para celular
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create v2.0.0-alpha.6 entrega/Baixa-Video.apk --target "$GITHUB_SHA" --title "Baixa Vídeo 2.0.0 alpha 6" --notes "Acompanhamento real do download e notificações desde a preparação." --prerelease
