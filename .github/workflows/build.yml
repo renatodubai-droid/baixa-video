@@ -17,7 +17,7 @@ jobs:
       - name: Extrair projeto
         run: |
           mkdir projeto
-          unzip Baixa-Video-projeto-Android.zip -d projeto
+          unzip Baixa-Video-projeto-Android-v2.zip -d projeto
 
       - name: Preparar Java
         uses: actions/setup-java@v4
