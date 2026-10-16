@@ -19,7 +19,7 @@ jobs:
       - name: Extrair projeto
         run: |
           mkdir projeto
-          unzip Baixa-Video-projeto-Android-v3.zip -d projeto
+          unzip Baixa-Video-projeto-Android-v4.zip -d projeto
 
       - name: Preparar Java
         uses: actions/setup-java@v4
@@ -59,4 +59,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create v2.0.0-alpha.6 entrega/Baixa-Video.apk --target "$GITHUB_SHA" --title "Baixa Vídeo 2.0.0 alpha 6" --notes "Acompanhamento real do download e notificações desde a preparação." --prerelease
+          gh release create v2.0.0-alpha.7 entrega/Baixa-Video.apk --target "$GITHUB_SHA" --title "Baixa Vídeo 2.0.0 alpha 7" --notes "Vídeos baixados agora vão para a Galeria (álbum BaixaVideo)." --prerelease
